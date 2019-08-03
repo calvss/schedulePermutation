@@ -75,3 +75,23 @@ for course in courseList:
                     timeMatrix[day, timeQuantum] = 1
 
     course.timeMatrix = timeMatrix.copy()
+
+# make permutations
+# 'schedules' is a list of schedules
+# each schedule is a list of courses
+schedules = []
+
+for i in range(len(courseList)):
+    schedule = []
+    schedule.append(courseList[i])
+
+    for j in range(i+1, len(courseList)):
+        # first compare course codes, only continue if differing course code
+        if courseList[i].rawRow[0] != courseList[j].rawRow[0]:
+            # then check time conflicts
+            if not timeConflict(courseList[i].timeMatrix, courseList[j].timeMatrix):
+                # if no conflict, add course to schedule
+                schedule.append(courseList[j])
+
+    schedules.append(schedule)
+    print(len(schedule))
