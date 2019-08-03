@@ -77,9 +77,9 @@ for course in courseList:
     course.timeMatrix = timeMatrix.copy()
 
 # make permutations
-# 'schedules' is a list of schedules
+# 'listOfSchedules' is a list of schedules
 # each schedule is a list of courses
-schedules = []
+listOfSchedules = []
 
 for i in range(len(courseList)):
     schedule = []
@@ -102,5 +102,12 @@ for i in range(len(courseList)):
             if not conflicted:
                 schedule.append(courseList[j])
 
-    schedules.append(schedule)
-    print(len(schedule))
+    listOfSchedules.append(schedule)
+
+with open('output.csv', 'w') as outfile:
+    csvWriter = csv.writer(outfile, delimiter = ',', dialect = 'excel')
+
+    for schedule in listOfSchedules:
+        for course in schedule:
+            csvWriter.writerow(course.rawRow)
+        csvWriter.writerow([])
