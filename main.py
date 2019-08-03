@@ -86,11 +86,20 @@ for i in range(len(courseList)):
     schedule.append(courseList[i])
 
     for j in range(i+1, len(courseList)):
-        # first compare course codes, only continue if differing course code
-        if courseList[i].rawRow[0] != courseList[j].rawRow[0]:
+        candidateCourse = courseList[j]
+
+        # first compare course codes, only continue if you haven't chosen the same subject yet
+        candidateCourseCode = candidateCourse.rawRow[0]
+        listOfCourseCodes = [course.rawRow[0] for course in schedule]
+        if candidateCourseCode not in listOfCourseCodes:
             # then check time conflicts
-            if not timeConflict(courseList[i].timeMatrix, courseList[j].timeMatrix):
-                # if no conflict, add course to schedule
+            conflicted = False
+            for existingCourse in schedule:
+                if timeConflict(candidateCourse.timeMatrix, existingCourse.timeMatrix):
+                    conflicted = True
+
+            # if no conflict, add course to schedule
+            if not conflicted:
                 schedule.append(courseList[j])
 
     schedules.append(schedule)
