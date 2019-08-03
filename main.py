@@ -104,7 +104,7 @@ for i in range(len(courseList)):
 
     listOfSchedules.append(schedule)
 
-with open('output.csv', 'w') as outfile:
+with open('output.csv', 'w', newline = '') as outfile:
     csvWriter = csv.writer(outfile, delimiter = ',', dialect = 'excel')
 
     for schedule in listOfSchedules:
