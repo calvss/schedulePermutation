@@ -102,6 +102,19 @@ for firstCourse in courseList:
 
     listOfSchedules.append(schedule)
 
+# delete duplicates:
+# have to use this weird while-loop construction since regular for-loops get confused if you remove an element while in the loop
+i = 0
+while i < len(listOfSchedules):
+    j = i+1
+    while j < len(listOfSchedules):
+        # compare two schedules if they contain the same courses, disregarding order
+        if set(listOfSchedules[i]) == set(listOfSchedules[j]):
+            del listOfSchedules[j]
+            print("removed a duplicate")
+        j += 1
+    i += 1
+
 with open('output.csv', 'w', newline = '') as outfile:
     csvWriter = csv.writer(outfile, delimiter = ',', dialect = 'excel')
 
