@@ -81,13 +81,11 @@ for course in courseList:
 # each schedule is a list of courses
 listOfSchedules = []
 
-for i in range(len(courseList)):
+for firstCourse in courseList:
     schedule = []
-    schedule.append(courseList[i])
+    schedule.append(firstCourse)
 
-    for j in range(i+1, len(courseList)):
-        candidateCourse = courseList[j]
-
+    for candidateCourse in courseList:
         # first compare course codes, only continue if you haven't chosen the same subject yet
         candidateCourseCode = candidateCourse.rawRow[0]
         listOfCourseCodes = [course.rawRow[0] for course in schedule]
@@ -100,7 +98,7 @@ for i in range(len(courseList)):
 
             # if no conflict, add course to schedule
             if not conflicted:
-                schedule.append(courseList[j])
+                schedule.append(candidateCourse)
 
     listOfSchedules.append(schedule)
 
